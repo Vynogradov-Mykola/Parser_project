@@ -1,3 +1,7 @@
+"""
+Parsing product page using selenium
+"""
+
 from load_django import *
 from parser_app.models import Product
 
@@ -46,14 +50,14 @@ driver.get("https://brain.com.ua/")
 
 wait = WebDriverWait(driver, 20)
 
-# Ждем ВСЕ input поиска
+
 inputs = wait.until(
     EC.presence_of_all_elements_located((By.XPATH, "//input[@type='text']"))
 )
 
 search_input = None
 
-# Берем только ВИДИМЫЙ
+
 for inp in inputs:
     if inp.is_displayed():
         search_input = inp
@@ -62,7 +66,6 @@ for inp in inputs:
 if not search_input:
     raise Exception("Поисковое поле не найдено")
 
-# Кликаем и вводим
 search_input.click()
 search_input.clear()
 search_input.send_keys("Apple iPhone 15 128GB Black")
